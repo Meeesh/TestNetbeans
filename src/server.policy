@@ -1,0 +1,3 @@
+grant codeBase "file:/d:/Users/Michael/Documents/NetBeansProjects/ChatGUI/build/classes" {
+	permission java.security.AllPermission;
+};
