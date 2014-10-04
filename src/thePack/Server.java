@@ -10,7 +10,7 @@ public class Server extends UnicastRemoteObject implements ServerIF {
 	private String message;
 
 	public Server() throws RemoteException {
-		message="C'est trop epic !!!";
+		message="J'ai changeer ceci dans l'interface web";
 	}
 
 	@Override
