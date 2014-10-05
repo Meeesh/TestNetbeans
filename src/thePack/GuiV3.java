@@ -15,7 +15,7 @@ import javax.swing.*;
  *
  * @author Michael
  */
-public class GuiV3 extends JFrame implements Runnable{
+public class GuiV3 extends JFrame{
     // Variables for GUI                     
     private JScrollPane jScrollPane1;
     private JScrollPane jScrollPane2;
@@ -40,8 +40,7 @@ public class GuiV3 extends JFrame implements Runnable{
     private DefaultListModel usersModel = new DefaultListModel();
     private DefaultListModel roomsModel = new DefaultListModel();
     
-    @Override
-    public void run(){
+    public static void main(String[] args){
         try {
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
