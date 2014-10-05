@@ -84,13 +84,15 @@ public class GuiV3 extends JFrame{
         testText = new JTextArea();
         
         //RMI
-//        String chatServerURL="rmi://192.168.1.3/RMIChatServer";    	
-//    	System.setSecurityManager(new SecurityManager());    	
-//    	server = (ServerIF) Naming.lookup(chatServerURL);
+        String chatServerURL="rmi://192.168.1.3/RMIChatServer";    	
+    	System.setSecurityManager(new SecurityManager());    	
+    	server = (ServerIF) Naming.lookup(chatServerURL);
         
         pseudo = JOptionPane.showInputDialog("Entrez votre pseudo:");
         listUsrs = pseudo;
         usersModel.addElement(listUsrs);
+        
+        //here call method on server to try to log in via given pseudo
         
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Le chat a ReMI");
@@ -185,12 +187,16 @@ public class GuiV3 extends JFrame{
         );
         
         pack();
+        Background BGTask = new Background(server);
+        Thread BGTaskThread = new Thread(BGTask);
+        BGTaskThread.start();
     }
         
         
     private void sendMessage(ActionEvent evt) {                             
 //        testText.append(pseudo + " : " + messSend.getText() + "\n"); 
         try{
+            //here send message to server and get messages from server.
             testText.append(server.getMessage() + "\n");
         }
         catch(RemoteException ex){
@@ -199,7 +205,9 @@ public class GuiV3 extends JFrame{
         messSend.setText(null);
     }                            
 
-    private void newChatRoom(ActionEvent evt) {                             
+    private void newChatRoom(ActionEvent evt) {
+        
+        //here inform server of new chat room
         
         int[] selec = listUsrLog.getSelectedIndices();
         for(int i = 0; i < selec.length ; i++){
@@ -214,6 +222,7 @@ public class GuiV3 extends JFrame{
     }
     
     private void newChatRoomPriv(int index) { 
+        //here inform server of new private chat room
         String title = new String(listUsrs + " Private");
         tabChatRooms.add(title, testText);
         listUsrLog.clearSelection();
