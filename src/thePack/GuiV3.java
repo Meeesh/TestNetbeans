@@ -15,7 +15,7 @@ import javax.swing.*;
  *
  * @author Michael
  */
-public class GuiV3 extends JFrame{
+public class GuiV3 extends JFrame implements Runnable{
     // Variables for GUI                     
     private JScrollPane jScrollPane1;
     private JScrollPane jScrollPane2;
@@ -40,7 +40,8 @@ public class GuiV3 extends JFrame{
     private DefaultListModel usersModel = new DefaultListModel();
     private DefaultListModel roomsModel = new DefaultListModel();
     
-    public static void main(String[] args){
+    @Override
+    public void run(){
         try {
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -187,9 +188,6 @@ public class GuiV3 extends JFrame{
         );
         
         pack();
-        Background BGTask = new Background(server);
-        Thread BGTaskThread = new Thread(BGTask);
-        BGTaskThread.start();
     }
         
         
@@ -197,10 +195,10 @@ public class GuiV3 extends JFrame{
 //        testText.append(pseudo + " : " + messSend.getText() + "\n"); 
         try{
             //here send message to server and get messages from server.
-            testText.append(server.getMessage() + "\n");
+            testText.append("Server : " + server.getMessage() + "\n");
         }
         catch(RemoteException ex){
-            ex.getMessage();
+            System.out.println(ex.getMessage());
         }
         messSend.setText(null);
     }                            
@@ -248,5 +246,5 @@ public class GuiV3 extends JFrame{
             tabChatRooms.add(title, testText);
             liste.clearSelection();
         }
-    }    
+    }
 }
